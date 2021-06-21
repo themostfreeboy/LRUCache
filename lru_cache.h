@@ -27,6 +27,7 @@ public:
 
         // 将该缓存数据移至list头部
         _cache_list.splice(_cache_list.begin(), _cache_list, cache_list_iter);
+
         return true;
     }
 

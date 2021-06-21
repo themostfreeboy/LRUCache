@@ -31,7 +31,6 @@ int main(int argc, char** argv) {
             int value = rand() % 1000;
             lru_cache.set(key, value);
             std::cout << "set_key(" << key << ") success, value=" << value << std::endl;
-            std::cout << lru_cache.cache_list_str();
         } else {
             // get
             int value = 0;
@@ -41,8 +40,10 @@ int main(int argc, char** argv) {
             } else {
                 std::cout << "get_key(" << key << ") failed" << std::endl;
             }
-            std::cout << lru_cache.cache_list_str();
         }
+
+        std::cout << lru_cache.cache_list_str();
+
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     }
 
