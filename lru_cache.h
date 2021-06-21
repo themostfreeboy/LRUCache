@@ -25,10 +25,8 @@ public:
         assert(cache_list_iter->first == key);
         value = cache_list_iter->second;
 
-        // 将该缓存数据移至list头部，同时更新map中对应key的迭代器
-        _cache_list.erase(cache_list_iter);
-        _cache_list.emplace_front(std::pair<KeyType, ValueType>(key, value));
-        _cache_map[key] = _cache_list.begin();
+        // 将该缓存数据移至list头部
+        _cache_list.splice(_cache_list.begin(), _cache_list, cache_list_iter);
         return true;
     }
 
@@ -50,12 +48,13 @@ public:
             _cache_map[key] = _cache_list.begin();
         } else {
             // 找到了
-            // 将该缓存数据移至list头部，同时更新map中对应key的迭代器
+            // 将该缓存数据移至list头部
             const auto cache_list_iter = cache_map_iter->second;
             assert(cache_list_iter->first == key);
-            _cache_list.erase(cache_list_iter);
-            _cache_list.emplace_front(std::pair<KeyType, ValueType>(key, value));
-            _cache_map[key] = _cache_list.begin();
+            _cache_list.splice(_cache_list.begin(), _cache_list, cache_list_iter);
+
+            // 修改value值为新设置的值
+            cache_list_iter->second = value;
         }
     }
 

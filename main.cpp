@@ -27,11 +27,13 @@ int main(int argc, char** argv) {
         int key = rand() % 10;
         int op = rand() % 2;
         if (op == 0) {
+            // set
             int value = rand() % 1000;
             lru_cache.set(key, value);
             std::cout << "set_key(" << key << ") success, value=" << value << std::endl;
             std::cout << lru_cache.cache_list_str();
         } else {
+            // get
             int value = 0;
             bool ret = lru_cache.get(key, value);
             if (ret) {
